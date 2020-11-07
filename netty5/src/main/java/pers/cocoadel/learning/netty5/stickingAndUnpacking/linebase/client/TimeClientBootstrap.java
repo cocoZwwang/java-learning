@@ -1,4 +1,4 @@
-package pers.cocoadel.learning.netty5.stickingAndUnpacking.client;
+package pers.cocoadel.learning.netty5.stickingAndUnpacking.linebase.client;
 
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.handler.codec.string.StringDecoder;

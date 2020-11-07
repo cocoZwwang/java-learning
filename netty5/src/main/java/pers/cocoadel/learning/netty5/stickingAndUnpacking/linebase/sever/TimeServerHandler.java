@@ -1,6 +1,5 @@
-package pers.cocoadel.learning.netty5.stickingAndUnpacking.sever;
+package pers.cocoadel.learning.netty5.stickingAndUnpacking.linebase.sever;
 
-import com.sun.jndi.cosnaming.CNCtx;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;

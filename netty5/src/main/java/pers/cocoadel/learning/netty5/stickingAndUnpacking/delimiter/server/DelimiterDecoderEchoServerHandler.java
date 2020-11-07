@@ -1,4 +1,4 @@
-package pers.cocoadel.learning.netty5.server.echoserver;
+package pers.cocoadel.learning.netty5.stickingAndUnpacking.delimiter.server;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

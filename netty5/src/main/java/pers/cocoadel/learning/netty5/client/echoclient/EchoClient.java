@@ -7,20 +7,14 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
 public class EchoClient {
-    private static final String delimiter = "$_";
-    public void connect(String ip, int port, ChannelHandler... channelHandlers) {
+    public void connect(String ip, int port, ChannelInitializer<SocketChannel> channelInitializer) {
         EventLoopGroup workGroup = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(workGroup)
                     .channel(NioSocketChannel.class)
                     .option(ChannelOption.TCP_NODELAY,true)
-                    .handler(new ChannelInitializer<SocketChannel>() {
-                        @Override
-                        protected void initChannel(SocketChannel socketChannel) throws Exception {
-                            socketChannel.pipeline().addLast(channelHandlers);
-                        }
-                    });
+                    .handler(channelInitializer);
             ChannelFuture channelFuture = bootstrap.connect(ip,port).sync();
             channelFuture.channel().closeFuture().sync();
         }catch (Exception e){

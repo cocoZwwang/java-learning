@@ -1,4 +1,4 @@
-package pers.cocoadel.learning.netty5.stickingAndUnpacking.client;
+package pers.cocoadel.learning.netty5.stickingAndUnpacking.linebase.client;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;

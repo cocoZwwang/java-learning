@@ -1,4 +1,4 @@
-package pers.cocoadel.learning.netty5.stickingAndUnpacking.sever;
+package pers.cocoadel.learning.netty5.stickingAndUnpacking.linebase.sever;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
