@@ -5,6 +5,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 import java.sql.Time;
 import java.util.concurrent.Executors;
@@ -24,7 +26,8 @@ public class EchoClient {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(workGroup)
                     .channel(NioSocketChannel.class)
-                    .option(ChannelOption.TCP_NODELAY,true)
+                    .option(ChannelOption.TCP_NODELAY, true)
+                    .handler(new LoggingHandler(LogLevel.DEBUG))
                     .handler(channelInitializer);
             ChannelFuture channelFuture = bootstrap.connect(ip,port).sync();
             channelFuture.channel().closeFuture().sync();

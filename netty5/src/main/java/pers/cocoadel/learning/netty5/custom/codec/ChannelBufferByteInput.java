@@ -35,7 +35,6 @@ public class ChannelBufferByteInput implements ByteInput {
             return -1;
         }
         len = Math.min(len,available);
-        System.out.println("off: " + off +"  len: " + len);
         byteBuf.readBytes(b, off, len);
         return len;
     }

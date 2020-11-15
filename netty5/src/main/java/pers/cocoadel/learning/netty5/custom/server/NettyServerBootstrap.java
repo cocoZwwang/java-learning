@@ -2,10 +2,13 @@ package pers.cocoadel.learning.netty5.custom.server;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import pers.cocoadel.learning.netty5.custom.codec.NettyMessageDecoder;
 import pers.cocoadel.learning.netty5.custom.codec.NettyMessageEncoder;
 import pers.cocoadel.learning.netty5.server.echoserver.EchoServer;
+
+import java.util.logging.Level;
 
 public class NettyServerBootstrap {
 
