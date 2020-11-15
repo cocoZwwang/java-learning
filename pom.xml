@@ -11,6 +11,7 @@
         <module>jvm</module>
         <module>NIO</module>
         <module>netty5</module>
+        <module>concurrency</module>
     </modules>
     <packaging>pom</packaging>
 

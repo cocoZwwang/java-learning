@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Web Socket 测试页面</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      padding: 1em 0;
+      width: 95%;
+      margin: 0 auto;
+    }
+
+    .websocket-form .col {
+      display: flex;
+      flex-direction: column;
+      border: 0;
+    }
+
+    .websocket-form .col.req {
+      border-bottom: 2px solid #666;
+    }
+
+    .websocket-form .col>* {
+      margin: 1em 0;
+    }
+
+    .websocket-form input,
+    .websocket-form textarea {
+      width: 20em;
+      line-height: 1.5;
+      padding: .375em .3125em .3125em;
+      border: 1px solid #ccc;
+      border-radius: .25em;
+    }
+
+
+
+    .websocket-form button {
+      width: 20em;
+      margin: 0;
+      padding: .5em 1em;
+      color: #fff;
+      cursor: pointer;
+      border: 0;
+      border-radius: .25em;
+      background-color: #173b6d;
+      background-image: linear-gradient(to bottom, #1a4a8e, #173b6d);
+      /*外阴影: x轴偏移0  y轴偏移.25em 模糊半斤0 颜色,内阴影: x轴偏移0 y轴偏移1 模糊半径是0 颜色*/
+      box-shadow: 0 .25em 0 rgba(23, 59, 109, 0.3), inset 0 1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .websocket-form button:focus {
+      outline: 0;
+      background-color: #2158a9;
+      background-image: linear-gradient(to bottom, #a063c0, #1d4d90);
+      box-shadow: 0 .25em 0 rgba(23, 59, 109, 0.3), inset 0 1px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .websocket-form textarea {
+      height: 10em;
+      resize: vertical;
+    }
+  </style>
+  <script>
+    var socket;
+    if (!window.WebSocket) {
+      window.WebSocket = window.MozWebSocket;
+    }
+
+    if (window.WebSocket) {
+      socket = new WebSocket("ws://localhost:8807/websocket");
+      socket.onmessage = function (event) {
+        var ta = document.getElementById("rsp-msg");
+        ta.value = "";
+        ta.value = event.data;
+      };
+
+      socket.onopen = function (event) {
+        var ta = document.getElementById("rsp-msg");
+        ta.value = "";
+        ta.value = "打开WebSocket服务正常,浏览器支持WebSocket!";
+      }
+
+      socket.onclose = function (event) {
+        var ta = document.getElementById("rsp-msg");
+        ta.value = "";
+        ta.value = "WebSocket 关闭!";
+      }
+    } else {
+      alert("抱歉!你的浏览器不支持WebSocket协议!");
+    }
+
+    function send(message) {
+      if (!window.WebSocket) {
+        return;
+      }
+
+      if (socket.readyState == WebSocket.OPEN) {
+        socket.send(message);
+      } else {
+        alert("WebSocket 连接没有建立成功!");
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>Netty WebSocket 时间服务器</h1>
+  </div>
+  <div class="wrapper">
+    <form class="websocket-form" onsubmit="return false;">
+      <fieldset class="col req">
+        <input type="text" id="send_msg" name="send_msg" />
+        <button type="submit" onclick="send(this.form.send_msg.value)">发送WebSocket请求消息</button>
+      </fieldset>
+      <fieldset class="col">
+        <h2>服务端返回消息</h2>
+        <textarea class="rsp-msg" id="rsp-msg" name="rsp-msg"></textarea>
+      </fieldset>
+    </form>
+  </div>
+</body>
+
+</html>

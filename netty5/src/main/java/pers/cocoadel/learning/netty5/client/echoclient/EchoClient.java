@@ -6,8 +6,19 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
+import java.sql.Time;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class EchoClient {
+    private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
     public void connect(String ip, int port, ChannelInitializer<SocketChannel> channelInitializer) {
+        connect(ip, port, channelInitializer, false);
+    }
+
+    public void connect(String ip, int port, ChannelInitializer<SocketChannel> channelInitializer, boolean reConnect) {
         EventLoopGroup workGroup = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
@@ -21,6 +32,16 @@ public class EchoClient {
             e.printStackTrace();
         }finally {
             workGroup.shutdownGracefully();
+            if(reConnect) {
+                executor.execute(() -> {
+                    try {
+                        TimeUnit.SECONDS.sleep(5);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    connect(ip, port, channelInitializer, true);
+                });
+            }
         }
     }
 }
