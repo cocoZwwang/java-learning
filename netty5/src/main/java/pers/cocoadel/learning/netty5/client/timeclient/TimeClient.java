@@ -1,10 +1,12 @@
 package pers.cocoadel.learning.netty5.client.timeclient;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.UnpooledByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LoggingHandler;
 
 public class TimeClient {
     public void connect(String ip, int port) {
@@ -23,13 +25,14 @@ public class TimeClient {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             socketChannel.pipeline().addLast(channelHandlers);
+                            socketChannel.config().setAllocator(UnpooledByteBufAllocator.DEFAULT);
                         }
                     });
             ChannelFuture channelFuture = bootstrap.connect(ip,port).sync();
-            channelFuture.channel().closeFuture().sync();
+            channelFuture.channel().closeFuture()
+                    .addListener((ChannelFutureListener) future -> workGroup.shutdownGracefully());
         } catch (InterruptedException e) {
             e.printStackTrace();
-            workGroup.shutdownGracefully();
         }
     }
 

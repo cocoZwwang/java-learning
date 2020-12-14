@@ -17,16 +17,23 @@ public class EchoServer {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(bossGroup, workGroup)
                     .channel(NioServerSocketChannel.class)
-                    .option(ChannelOption.TCP_NODELAY,true)
+                    .option(ChannelOption.TCP_NODELAY, true)
                     .handler(new LoggingHandler(LogLevel.DEBUG))
                     .childHandler(channelInitializer);
             ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
-            channelFuture.channel().closeFuture().sync();
+            channelFuture.channel().closeFuture().addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture future) throws Exception {
+                    bossGroup.shutdownGracefully();
+                    workGroup.shutdownGracefully();
+                    System.out.println("Server shutdown !");
+                }
+            });
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
-            bossGroup.shutdownGracefully();
-            workGroup.shutdownGracefully();
+        } finally {
+//            bossGroup.shutdownGracefully();
+//            workGroup.shutdownGracefully();
         }
     }
 }

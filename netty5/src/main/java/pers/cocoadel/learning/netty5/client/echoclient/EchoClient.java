@@ -35,6 +35,7 @@ public class EchoClient {
             e.printStackTrace();
         }finally {
             workGroup.shutdownGracefully();
+            System.out.println("client shutdown!");
             if(reConnect) {
                 executor.execute(() -> {
                     try {
@@ -42,6 +43,7 @@ public class EchoClient {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    System.out.println("client repeat connecting !");
                     connect(ip, port, channelInitializer, true);
                 });
             }

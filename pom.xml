@@ -12,6 +12,10 @@
         <module>NIO</module>
         <module>netty5</module>
         <module>concurrency</module>
+        <module>algorithm</module>
+        <module>netty4</module>
+        <module>mysql</module>
+        <module>socket</module>
     </modules>
     <packaging>pom</packaging>
 
