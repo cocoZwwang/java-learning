@@ -16,6 +16,9 @@
         <module>netty4</module>
         <module>mysql</module>
         <module>socket</module>
+        <module>base</module>
+        <module>Hystrix</module>
+        <module>tow-uncles-demo</module>
     </modules>
     <packaging>pom</packaging>
 
