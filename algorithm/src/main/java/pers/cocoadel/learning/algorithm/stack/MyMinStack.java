@@ -8,7 +8,8 @@ public class MyMinStack implements MinStack<Integer> {
     private final IStack<Integer> minStack = new MyArrayStack();
 
 //    private final IStack<Integer> stack = new MyQueueStack(1000);
-    private final IStack<Integer> stack = new ArrayStack(1000);
+//    private final IStack<Integer> stack = new ArrayStack(1000);
+    private final IStack<Integer> stack = new LinkedStack();
 
     public MyMinStack(){
         minStack.push(Integer.MAX_VALUE);
