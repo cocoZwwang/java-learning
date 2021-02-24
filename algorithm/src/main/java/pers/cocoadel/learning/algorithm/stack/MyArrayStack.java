@@ -40,4 +40,9 @@ public class MyArrayStack implements IStack<Integer> {
     public boolean isEmpty() {
         return arrayList.isEmpty();
     }
+
+    @Override
+    public boolean isFull() {
+        return false;
+    }
 }

@@ -45,4 +45,9 @@ public class MyQueueStack implements IStack<Integer> {
     public boolean isEmpty() {
         return queue.isEmpty();
     }
+
+    @Override
+    public boolean isFull() {
+        return queue.isFull();
+    }
 }
