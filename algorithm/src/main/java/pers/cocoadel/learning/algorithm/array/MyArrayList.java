@@ -22,6 +22,9 @@ public class MyArrayList<T> {
         this(DEFAULT_CAPACITY);
     }
 
+    /**
+     * 在指定位置插入一个元素，如果插入时候数组已经满了，则扩容为原来的2倍
+     */
     public void add(int index, T value) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException(String.format("Index %s out of bounds for length %s", index, size));
@@ -39,10 +42,16 @@ public class MyArrayList<T> {
         size++;
     }
 
+    /**
+     * 在数组元素尾部添加一个元素
+     */
     public void add(T value) {
         add(size,value);
     }
 
+    /**
+     * 修改指定下标的值
+     */
     public void set(int index, T value) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(String.format("Index %s out of bounds for length %s", index, size));
@@ -50,6 +59,9 @@ public class MyArrayList<T> {
         array[index] = value;
     }
 
+    /**
+     * 删除指定下标的元素，如果删除后数组长度是原来的 1/4 则缩容为原来的 1/2
+     */
     public T remove(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException(String.format("Index %s out of bounds for length %s", index, size));
@@ -68,6 +80,9 @@ public class MyArrayList<T> {
         return res;
     }
 
+    /**
+     * 指定元素如果存在，则删除
+     */
     public void remove(T value) {
         int index = indexOf(value);
         if (index != -1) {
@@ -75,6 +90,9 @@ public class MyArrayList<T> {
         }
     }
 
+    /**
+     * 指定元素如果存在则返回其下标，否则返回 -1
+     */
     public int indexOf(T value) {
         for (int i = 0; i < size; i++) {
             if (array[i] == value) {
@@ -84,6 +102,9 @@ public class MyArrayList<T> {
         return -1;
     }
 
+    /**
+     * 数组是否包含指定元素
+     */
     public boolean contains(T value) {
         for (int i = 0; i < size; i++) {
             if (array[i] == value) {
@@ -93,18 +114,30 @@ public class MyArrayList<T> {
         return false;
     }
 
+    /**
+     * 数组是否为空
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * 当前元素个数
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * 当前数组容量
+     */
     public int getCapacity() {
         return capacity;
     }
 
+    /**
+     * 读取指定下标的元素
+     */
     public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException(String.format("Index %s out of bounds for length %s", index, size));
@@ -112,6 +145,10 @@ public class MyArrayList<T> {
         return (T) array[index];
     }
 
+    /**
+     * 动态扩容或者缩容
+     * @param capacity 新的数组容量
+     */
     private void newCapacity(int capacity) {
         this.capacity = capacity;
         Object[] newArray = new Object[capacity];
