@@ -1,7 +1,7 @@
 安装证书:
 
 #keytool -import -alias netty -keystore  "C:\Program Files\Java\jdk1.8.0_121\lib\security\cacerts"  -file "C:\Users\rwby\AppData\Local\Temp\keyutil_example.com_9134608908685612339.crt" -storepass changeit
-keytool -import -alias netty -keystore  "C:\Program Files\Java\jdk1.8.0_121\jre\lib\security\cacerts"  -file "C:\Users\rwby\AppData\Local\Temp\keyutil_example.com_9134608908685612339.crt" -storepass changeit
+keytool -import -alias netty -keystore  "D:\Java\jdk1.8.0_131\jre\lib\security\cacerts"  -file "C:\Users\zwwan\AppData\Local\Temp\keyutil_example.com_2504147031906165754.crt" -storepass changeit
 
 删除证书:
 

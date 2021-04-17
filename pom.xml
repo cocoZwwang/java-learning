@@ -19,6 +19,7 @@
         <module>base</module>
         <module>Hystrix</module>
         <module>tow-uncles-demo</module>
+        <module>java-config</module>
     </modules>
     <packaging>pom</packaging>
 

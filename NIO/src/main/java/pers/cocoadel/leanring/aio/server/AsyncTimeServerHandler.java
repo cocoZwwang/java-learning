@@ -23,8 +23,10 @@ public class AsyncTimeServerHandler implements Runnable{
     @Override
     public void run() {
         latch = new CountDownLatch(1);
+
         doAccept();
         try {
+            //因为doAccept 是异步 所以这里需要使用 CountDownLatch await，否则线程会直接结束掉。
             latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();

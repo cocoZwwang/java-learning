@@ -1,5 +1,9 @@
 package pers.cocoadel.learning.algorithm.stack;
 
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.TreeSet;
+
 import static com.google.common.base.Preconditions.checkArgument;
 
 public class MinStackTest {
@@ -28,6 +32,11 @@ public class MinStackTest {
         checkArgument(stack.pop() == 1);
 
         System.out.println("测试通过！！！！");
+        System.currentTimeMillis();
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

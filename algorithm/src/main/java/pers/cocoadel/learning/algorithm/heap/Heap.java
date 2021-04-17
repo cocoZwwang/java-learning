@@ -1,27 +1,26 @@
 package pers.cocoadel.learning.algorithm.heap;
 
-import java.util.NoSuchElementException;
-
 public interface Heap<T> {
     /**
-     * 获取堆顶元素，没有就抛出异常
+     * 获取堆顶元素，没有则返回空。
      */
-    T peek() throws NoSuchElementException;
+    T peek();
 
     /**
-     * 删除堆顶元素，并且被删除的元素，没有就抛出异常
+     * 删除堆顶元素，并且被删除的元素，没有则返回空。
      */
-    T poll() throws NoSuchElementException;
+    T poll();
 
     /**
-     * 删除数组下标为i的元素，并且返回被删除的元素，没有就抛出异常
+     * 删除数组下标为i的元素，并且返回被删除的元素，如果没有则返回空。
      */
-    T delete(int i) throws NoSuchElementException;
+    T delete(int i);
 
     /**
-     * 插入元素，如果堆满了，就抛出异常
+     * 插入元素，如果堆满了，返回 false
+     * 如果插入成功则返回 true
      */
-    void insert(T t) throws NoSuchElementException;
+    boolean insert(T t);
 
     /**
      * 堆是否满了
@@ -37,4 +36,6 @@ public interface Heap<T> {
      * 目前堆元素个数
      */
     int size();
+
+    void printHeap();
 }
