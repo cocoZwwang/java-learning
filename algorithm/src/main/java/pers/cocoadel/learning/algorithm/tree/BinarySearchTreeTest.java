@@ -1,16 +1,18 @@
 package pers.cocoadel.learning.algorithm.tree;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.*;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
 public class BinarySearchTreeTest {
     public static void main(String[] args) {
-        BinarySearchTree<Integer, Integer> tree = new DefaultBinarySearchTree<>();
+        BinarySearchTree<Integer, Integer> tree = getBinarySearchTree();
         //test isEmpty()
         checkArgument(tree.isEmpty());
 
-        System.out.println(3 / 2 + "    " + (-3 / 2));
         tree.put(2, 2);
         tree.put(1, 1);
         tree.put(4, 4);
@@ -22,7 +24,7 @@ public class BinarySearchTreeTest {
 
         Iterator<Integer> iterator = tree.iterator();
         iterator.forEachRemaining(i -> System.out.print(i + " "));
-        System.out.println();
+        System.out.println("--------------------------------------");
 
         //test size
         checkArgument(tree.size() == 8);
@@ -54,22 +56,21 @@ public class BinarySearchTreeTest {
 
         //test ceil
         checkArgument(tree.ceiling(9) == 10);
-
         // test rank
         int rank = tree.rank(5);
-//        System.out.println("rank: " + rank);
+        System.out.println("rank: " + rank);
         checkArgument(rank == 5);
 
         // test select
         int key = tree.select(6);
-//        System.out.println("key: " + key);
+        System.out.println("key: " + key);
         checkArgument(key == 6);
 
         //test delete
         tree.delete(6);
         checkArgument(tree.get(6) == null);
         int size = tree.size();
-//        System.out.println("size: " + size);
+        System.out.println("size: " + size);
         checkArgument(size == 8);
         checkArgument(tree.get(1) == 1);
         tree.delete(1);
@@ -82,62 +83,58 @@ public class BinarySearchTreeTest {
 
         System.out.println("测试通过");
 
-        testLower(new DefaultBinarySearchTree<>());
+        testLower(getBinarySearchTree());
 
-        testHigher(new DefaultBinarySearchTree<>());
+        testHigher(getBinarySearchTree());
+    }
+
+    private static BinarySearchTree<Integer,Integer> getBinarySearchTree() {
+//        return new CommBinarySearchTree<>();
+//        return new AVLSearchTree<>();
+        return new AbstractBinarySearchTree2<>();
     }
 
 
     private static void testLower(BinarySearchTree<Integer, Integer> binarySearchTree) {
-        if (binarySearchTree instanceof DefaultBinarySearchTree) {
-            DefaultBinarySearchTree<Integer,Integer> defaultBinarySearchTree =
-                    (DefaultBinarySearchTree<Integer, Integer>) binarySearchTree;
-            defaultBinarySearchTree.put(2,2);
-            defaultBinarySearchTree.put(4,4);
-            defaultBinarySearchTree.put(6,6);
-            defaultBinarySearchTree.put(8,8);
+        binarySearchTree.put(2,2);
+        binarySearchTree.put(4,4);
+        binarySearchTree.put(6,6);
+        binarySearchTree.put(8,8);
 
-            Integer key = defaultBinarySearchTree.lower(5);
-            checkArgument(key == 4);
+        Integer key = binarySearchTree.lower(5);
+        checkArgument(key == 4);
 
-            key = defaultBinarySearchTree.lower(8);
-            checkArgument(key == 6);
+        key = binarySearchTree.lower(8);
+        checkArgument(key == 6);
 
-            key = defaultBinarySearchTree.lower(6);
-            checkArgument(key == 4);
+        key = binarySearchTree.lower(6);
+        checkArgument(key == 4);
 
-            key = defaultBinarySearchTree.lower(2);
-            checkArgument(key == null);
+        key = binarySearchTree.lower(2);
+        checkArgument(key == null);
 
-            System.out.println("testLower 通过");
-
-        }
+        System.out.println("testLower 通过");
     }
 
     private static void testHigher(BinarySearchTree<Integer, Integer> binarySearchTree) {
-        if (binarySearchTree instanceof DefaultBinarySearchTree) {
-            DefaultBinarySearchTree<Integer,Integer> defaultBinarySearchTree =
-                    (DefaultBinarySearchTree<Integer, Integer>) binarySearchTree;
-            defaultBinarySearchTree.put(2,2);
-            defaultBinarySearchTree.put(4,4);
-            defaultBinarySearchTree.put(6,6);
-            defaultBinarySearchTree.put(8,8);
+        binarySearchTree.put(2,2);
+        binarySearchTree.put(4,4);
+        binarySearchTree.put(6,6);
+        binarySearchTree.put(8,8);
 
-            Integer key = defaultBinarySearchTree.higher(5);
-            checkArgument(key == 6);
+        Integer key = binarySearchTree.higher(5);
+        checkArgument(key == 6);
 
-            key = defaultBinarySearchTree.higher(8);
-            checkArgument(key == null);
+        key = binarySearchTree.higher(8);
+        checkArgument(key == null);
 
-            key = defaultBinarySearchTree.higher(6);
-            checkArgument(key == 8);
+        key = binarySearchTree.higher(6);
+        checkArgument(key == 8);
 
-            key = defaultBinarySearchTree.higher(2);
-            checkArgument(key == 4);
+        key = binarySearchTree.higher(2);
+        checkArgument(key == 4);
 
-            System.out.println("testHigher 通过");
-
-        }
+        System.out.println("testHigher 通过");
     }
 
 }

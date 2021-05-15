@@ -1,6 +1,6 @@
 package pers.cocoadel.learning.algorithm.string;
 
-public class KMPMatch implements StringMatch{
+public class KMPMatch implements StringMatch {
     @Override
     public int indexOf(String pattern, String src, int fromIndex) {
         char[] patternChars = pattern.toCharArray();
@@ -16,7 +16,7 @@ public class KMPMatch implements StringMatch{
         int[] next = new int[pLen];
         initNext(pattern, next);
         int j = 0;
-        for(int i = fromIndex; i < endIndex;i++){
+        for (int i = fromIndex; i < endIndex; i++) {
             while (j > 0 && pattern[j] != src[i]) {
                 j = next[j - 1] + 1;
             }
@@ -28,7 +28,7 @@ public class KMPMatch implements StringMatch{
                 return i - pLen + 1;
             }
         }
-        return - 1;
+        return -1;
     }
 
     private void initNext(char[] pattern, int[] next) {

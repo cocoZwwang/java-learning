@@ -6,7 +6,8 @@ public class StringMatchTest {
 
     public static void main(String[] args) {
 //        StringMatch stringMatch = new BMMatch();
-        StringMatch stringMatch = new KMPMatch();
+//        StringMatch stringMatch = new KMPMatch();
+        StringMatch stringMatch = new SimpleBMStringMatcher();
         matchTest(stringMatch, "cbacabc", "abcacabcbcbacabcbd");
         matchTest(stringMatch, "aaaa", "aaaaaaaaaaaaaaaaa");
         matchTest(stringMatch, "aaaa", "baaaaaaaaaaaaaaaaa");
