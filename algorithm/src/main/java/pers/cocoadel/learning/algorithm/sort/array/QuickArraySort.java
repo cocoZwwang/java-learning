@@ -1,5 +1,6 @@
 package pers.cocoadel.learning.algorithm.sort.array;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class QuickArraySort<T extends Comparable<T>> implements ArrayComparableSort<T> {
@@ -76,10 +77,11 @@ public class QuickArraySort<T extends Comparable<T>> implements ArrayComparableS
                     break;
                 }
             }
+            swap(array, i, right - 1);
             if (k - 1 < i) {
                 findKth(array, left, i - 1, comparator, k);
             } else if (k - 1 > i) {
-                findKth(array, left, i + 1, comparator, k);
+                findKth(array, i + 1, right, comparator, k);
             }
         } else {
             insertSort(array, left, right, comparator);

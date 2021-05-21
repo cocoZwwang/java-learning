@@ -51,8 +51,9 @@ public class SimpleBMStringMatcher implements StringMatch{
                 int preGoodIndex = findPreGoodChars(pattern,goodIndex);
                 int goodOffset = goodIndex - preGoodIndex;
                 if(preGoodIndex == -1){
-                    preGoodIndex = findGoodSuffix(pattern,goodIndex);
-                    goodOffset = pattern.length - preGoodIndex - 1;
+                    //前面好后缀已经匹配失败，所以好后缀本身不需要匹配
+                    preGoodIndex = findGoodSuffix(pattern,goodIndex + 1);
+                    goodOffset = preGoodIndex;
                 }
                 // 坏字符规则、好后缀规则，计算的偏移量，取大的一个
                 offset = Math.max(goodOffset,offset);
@@ -83,7 +84,7 @@ public class SimpleBMStringMatcher implements StringMatch{
                 pos--;
             }
             if(j == goodIndex - 1){
-                return pos;
+                return pos - 1;
             }
         }
         return -1;
@@ -101,7 +102,7 @@ public class SimpleBMStringMatcher implements StringMatch{
             j++;
         }
         if(j == pattern.length){
-            return i - 1;
+            return goodIndex;
         }
         return findGoodSuffix(pattern,goodIndex + 1);
     }
