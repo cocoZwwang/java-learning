@@ -20,6 +20,9 @@
         <module>Hystrix</module>
         <module>tow-uncles-demo</module>
         <module>java-config</module>
+        <module>SQL</module>
+        <module>Redis</module>
+        <module>compiler</module>
     </modules>
     <packaging>pom</packaging>
 

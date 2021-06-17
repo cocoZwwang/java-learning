@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--引入外部配置文件-->
+    <properties resource="db.properties">
+        <!--可以在这里追加外部文件没有的属性，如果外部文件已经存在同名的属性，那么外部文件的配置的优先级会更高 -->
+        <!--        <property name="userName" value="xxx"/>-->
+    </properties>
+    <settings>
+        <!--全局性地开启或关闭所有映射器配置文件中已配置的任何缓存，默认是开启的-->
+        <!--注意是已经配置了缓存的映射器，如果都没配置的就不存在什么开启和关闭的说了-->
+        <!--映射器开启二级缓存使用 cache 标签-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--mybatis 自带的标准日志输出，value 的值后面小心别带空格-->
+        <!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <typeAliases>
+        <!--单独给一个类其别名-->
+        <typeAlias type="pers.cocoadel.leanring.mybatis.domain.User" alias="uuuu"/>
+        <!--安装包路径进行扫描，默认别名使用类短命（首字母小写，也可以使用注解 @Alias 手动指定别名-->
+        <!--package 的配置必须卸载 typeAlias 后面，所以package 的配置会覆盖前面 typeAlias 标签的配置-->
+        <package name="pers.cocoadel.leanring.mybatis.domain"/>
+        <!--在mybatis 中有一些默认的别名，比如 int 是 Integer 的别名，而 _int 是基本类型 int 的别名，同理 float double 也是一样 -->
+    </typeAliases>
+    <environments default="development">
+
+        <!--这里可以配置多个环境，至于使用哪个 environment， 由上面 environments 的 default 属性指定-->
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 映射器（mappers）-->
+
+    <mappers>
+        <!--第一种方式： 直接绑定具体的xml文件-->
+        <!--        <mapper resource="pers/cocoadel/leanring/mybatis/dao/UserMapper.xml"/>-->
+
+        <!--第二种方式：使用同名绑定的 Mapper 接口，会把 该接口的长包名 + .xml 作为文件名进行加载-->
+        <!--        <mapper class="pers.cocoadel.leanring.mybatis.dao.UserMapper"/>-->
+        <!--第三种方式：使用包名扫描的方式，是第二种方式的包扫描版本-->
+        <package name="pers.cocoadel.leanring.mybatis.dao"/>
+
+    </mappers>
+
+
+</configuration>

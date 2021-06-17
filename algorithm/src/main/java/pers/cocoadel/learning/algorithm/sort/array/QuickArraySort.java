@@ -1,6 +1,5 @@
 package pers.cocoadel.learning.algorithm.sort.array;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 public class QuickArraySort<T extends Comparable<T>> implements ArrayComparableSort<T> {
@@ -63,6 +62,7 @@ public class QuickArraySort<T extends Comparable<T>> implements ArrayComparableS
         return array[right - 1];
     }
 
+    //让第 k 个元素成为排序后的 pivot
     public void findKth(T[] array, int left, int right, Comparator<T> comparator, int k) {
         if (left + CUTOFF <= right) {
             T pivot = median3(array, left, right, comparator);
@@ -78,9 +78,10 @@ public class QuickArraySort<T extends Comparable<T>> implements ArrayComparableS
                 }
             }
             swap(array, i, right - 1);
-            if (k - 1 < i) {
+            //不包含 pivot 左边的数量大于 k - 1 个
+            if (i - 1 + 1 > k - 1) {
                 findKth(array, left, i - 1, comparator, k);
-            } else if (k - 1 > i) {
+            } else if (i + 1 >= k - 1) {// 包含 pivot 的左边数量 >= k - 1个
                 findKth(array, i + 1, right, comparator, k);
             }
         } else {

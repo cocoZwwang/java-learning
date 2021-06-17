@@ -30,4 +30,15 @@
         </dependency>
     </dependencies>
 
+<!--    <build>-->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory></directory>-->
+<!--                <includes>-->
+<!--                    <include></include>-->
+<!--                </includes>-->
+<!--            </resource>-->
+<!--        </resources>-->
+<!--    </build>-->
+
 </project>

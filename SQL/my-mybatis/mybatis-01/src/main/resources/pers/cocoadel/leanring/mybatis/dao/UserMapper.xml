@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间绑定一个对应的 Dap/Mapper 的接口-->
+<mapper namespace="pers.cocoadel.leanring.mybatis.dao.UserMapper">
+    <!--可以通过 type 来指定第三方或者自定义的二级缓存实现-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+    <resultMap id="userResMap" type="user">
+        <!--只需要配置数据库字段和 POJO属性不一致的情况即可，如果默认匹配的情况可以提不配置-->
+        <!--        <result column="id" property="id"/>-->
+        <!--        <result column="name" property="name"/>-->
+        <result column="pwd" property="password"/>
+    </resultMap>
+
+    <!--因为在配置文件中使用了别名，因此可以直接使用别名，不需要写长包名-->
+    <select id="selectAll" resultMap="userResMap">
+        select * from users
+    </select>
+
+    <select id="selectPage" resultMap="userResMap">
+        <!--这里两种 多参数传递方式都可以-->
+        <!--        select * from users limit #{arg0}, #{arg1}-->
+        select * from users limit #{param1}, #{param2}
+    </select>
+
+    <!--resultType：返回数据的类型，可是POJO； parameterType：传入参数的类型，可以是POJO-->
+    <select id="selectById" resultMap="userResMap" parameterType="int">
+        select * from users where id = #{id}
+    </select>
+
+    <insert id="save" parameterType="user">
+        insert into users (id,name,pwd) values (#{id},#{name},#{password})
+    </insert>
+
+    <update id="update" parameterType="user">
+        update users set name = #{name},pwd = #{password} where id = ${id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from users where id = #{id}
+    </delete>
+
+    <update id="updateByMap" parameterType="java.util.Map">
+        update users set pwd = #{password} where id = #{userId}
+    </update>
+
+    <select id="selectByMap" parameterType="java.util.Map" resultMap="userResMap">
+        select * from users where name = #{userName} and pwd = #{password};
+    </select>
+
+    <!--在sql 语句中使用 %% 更加安全，如果直接在 java 中使用，存在 sql 注入的风险-->
+    <!--在 mybatis xml 文件中是使用字符串需要添加 ”“ -->
+    <select id="selectLike" parameterType="java.lang.String" resultMap="userResMap">
+        select * from users where name like "%"#{keyword}"%"
+    </select>
+
+</mapper>
